@@ -1,4 +1,4 @@
-const { Profile } = require('../models')
+const { Profile, Course } = require('../models')
 const cloudinary = require('cloudinary').v2
 
 async function index(req, res) {
@@ -28,4 +28,18 @@ async function addPhoto(req, res) {
   }
 }
 
-module.exports = { index, addPhoto }
+async function createCourse(req, res) {
+  try {
+    req.body.profileId = req.params.id
+    const course = await Course.create(req.body)
+    res.status(200).json(course)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+module.exports = {
+  index,
+  addPhoto,
+  createCourse,
+}
