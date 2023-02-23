@@ -52,9 +52,22 @@ async function createCourse(req, res) {
   }
 }
 
+async function updateCourse(req, res) {
+  try {
+    const course = await Course.update(
+      req.body,
+      { where: { id: req.params.courseId }, returning: true }
+    )
+    res.status(200).json(course)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 module.exports = {
   index,
   addPhoto,
   createCourse,
-  show
+  show,
+  updateCourse,
 }

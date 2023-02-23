@@ -14,5 +14,6 @@ router.put('/:id/add-photo', checkAuth, profilesCtrl.addPhoto)
 
 router.post('/:id/courses', checkAuth, profilesCtrl.createCourse)
 router.get('/:id', checkAuth, profilesCtrl.show)
+router.put('/:profileId/courses/:courseId', checkAuth, profilesCtrl.updateCourse)
 
 module.exports = router
