@@ -3,7 +3,9 @@ const cloudinary = require('cloudinary').v2
 
 async function index(req, res) {
   try {
-    const profiles = await Profile.findAll()
+    const profiles = await Profile.findAll({
+      include: [{ model: Course, as: 'courses' }]
+    })
     res.json(profiles)
   } catch (error) {
     console.log(error)
@@ -28,6 +30,18 @@ async function addPhoto(req, res) {
   }
 }
 
+async function show(req, res) {
+  try {
+    const profile = await Profile.findOne({
+      where: { id: req.params.id },
+      include: [{ model: Course, as: 'courses' }]
+    })
+    res.status(200).json(profile)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 async function createCourse(req, res) {
   try {
     req.body.profileId = req.params.id
@@ -42,4 +56,5 @@ module.exports = {
   index,
   addPhoto,
   createCourse,
+  show
 }
