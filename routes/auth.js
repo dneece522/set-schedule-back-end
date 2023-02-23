@@ -12,4 +12,6 @@ router.post('/login', authCtrl.login)
 router.use(decodeUserFromToken)
 router.post('/change-password', checkAuth, authCtrl.changePassword)
 
+router.delete('/delete', checkAuth, authCtrl.deleteAccount)
+
 module.exports = router

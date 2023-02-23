@@ -70,10 +70,26 @@ async function changePassword(req, res) {
   }
 }
 
+async function deleteAccount(req, res) {
+  try {
+    const rowsRemoved = await User.destroy(
+      { where: { id: req.user.id } }
+    )
+    res.status(200).json(rowsRemoved)
+  } catch (error) {
+    res.status(500).json({ err: error })
+  }
+}
+
 // /* --== Helper Functions ==-- */
 
 function createJWT(user) {
   return jwt.sign({ user }, process.env.SECRET, { expiresIn: '24h' })
 }
 
-module.exports = { signup, login, changePassword }
+module.exports = {
+  signup,
+  login,
+  changePassword,
+  deleteAccount
+}
