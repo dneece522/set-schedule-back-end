@@ -1,0 +1,1 @@
+# Open the front-end repo [HERE](https://github.com/dneece522/set-schedule-front-end) for more details on the project.
